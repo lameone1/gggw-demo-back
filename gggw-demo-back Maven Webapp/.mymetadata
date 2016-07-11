@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="gggw-demo-back Maven Webapp"
+  id="myeclipse.1466835843864"
+  context-root="/gggw-demo-back"
+  j2ee-spec="6.0"
+  archive="gggw-demo-back Maven Webapp.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

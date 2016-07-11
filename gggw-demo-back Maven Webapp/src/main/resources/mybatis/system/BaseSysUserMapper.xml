@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BaseSysUserMapper">
+  <resultMap id="BaseResultMap" type="BaseSysUser">
+    <id column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="USER_NO" jdbcType="VARCHAR" property="userNo" />
+    <result column="USER_PWD" jdbcType="VARCHAR" property="userPwd" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="ROLE_ID" jdbcType="INTEGER" property="roleId" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="QQ" jdbcType="VARCHAR" property="qq" />
+    <result column="GENDER" jdbcType="VARCHAR" property="gender" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="SALT" jdbcType="VARCHAR" property="salt" />
+    <result column="LAST_LOGIN_TIME" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="MAC" jdbcType="VARCHAR" property="mac" />
+    <result column="LOGIN_IPS" jdbcType="VARCHAR" property="loginIps" />
+    <result column="MEMO" jdbcType="VARCHAR" property="memo" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from BASE_SYS_USER
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="BaseSysUser">
+    insert into BASE_SYS_USER (USER_ID, USER_NO, USER_PWD, 
+      USER_NAME, ROLE_ID, MOBILE, 
+      EMAIL, PHONE, QQ, GENDER, 
+      STATUS, SALT, LAST_LOGIN_TIME, 
+      MAC, LOGIN_IPS, MEMO
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userNo,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{salt,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{mac,jdbcType=VARCHAR}, #{loginIps,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="BaseSysUser">
+    update BASE_SYS_USER
+    set USER_NO = #{userNo,jdbcType=VARCHAR},
+      USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      ROLE_ID = #{roleId,jdbcType=INTEGER},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      QQ = #{qq,jdbcType=VARCHAR},
+      GENDER = #{gender,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      SALT = #{salt,jdbcType=VARCHAR},
+      LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+      MAC = #{mac,jdbcType=VARCHAR},
+      LOGIN_IPS = #{loginIps,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select USER_ID, USER_NO, USER_PWD, USER_NAME, ROLE_ID, MOBILE, EMAIL, PHONE, QQ, 
+    GENDER, STATUS, SALT, LAST_LOGIN_TIME, MAC, LOGIN_IPS, MEMO
+    from BASE_SYS_USER
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select USER_ID, USER_NO, USER_PWD, USER_NAME, ROLE_ID, MOBILE, EMAIL, PHONE, QQ, 
+    GENDER, STATUS, SALT, LAST_LOGIN_TIME, MAC, LOGIN_IPS, MEMO
+    from BASE_SYS_USER
+  </select>
+  
+  	<!-- 通过用户名获取数据 -->
+	<select id="findByUserNo" parameterType="pd" resultType="pd" useCache="false">
+		select 
+			USER_ID, 
+			USER_NO, 
+			USER_PWD, 
+			USER_NAME, 
+			ROLE_ID, 
+			MOBILE, 
+			EMAIL, 
+			PHONE, 
+			QQ, 
+    		GENDER, 
+    		STATUS, 
+    		SALT, 
+    		LAST_LOGIN_TIME, 
+    		MAC, 
+    		LOGIN_IPS, 
+    		MEMO
+		from 
+			BASE_SYS_USER
+		where 
+			USER_NO = #{USER_NO}
+	</select>
+</mapper>

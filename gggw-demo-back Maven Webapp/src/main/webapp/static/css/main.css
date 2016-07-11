@@ -1,0 +1,144 @@
+/** 这是导航的 **/
+.navbar{
+    font-size: 14px;
+}
+
+.white_font a{
+    color: white;
+}
+
+.dark{
+    background-color: rgba(0,0,0,.2);
+}
+
+.light {
+    background-color: rgba(255, 255, 255, .97);
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+/** 这个是主题背景的 **/
+
+.topic h1{
+    font-size: 36px;
+    font-family: Muli,'Helvetica Neue','Hiragino Sans GB','WenQuanYi Micro Hei','Microsoft Yahei',sans-serif !important;
+
+}
+
+.topic a{
+    font-size: 18px;
+    position: relative;
+    display: inline-block;
+    padding: 17px 93px;
+    text-decoration: none;
+    color: white;
+    border: 1px solid white;
+    border-radius: 2px;
+    background-color: transparent;
+    cursor:pointer;
+}
+.topic a:hover{
+    background-color: rgba(255,255,255,.2);
+}
+
+
+/** footer **/
+footer {
+    min-height: 100px;
+    text-align: left;
+    background-color: #000;
+}
+
+footer section {
+    width: 900px;
+    margin: 0 auto;
+}
+
+footer dl {
+    font-size: 14px;
+    display: inline-block;
+    float: left;
+    width: 16%;
+    margin-top: 46px;
+    text-align: left;
+    vertical-align: top;
+}
+
+footer dt {
+    font-weight: normal;
+    margin: 5px 0;
+    color: #fff;
+}
+
+footer dd a {
+    text-decoration: none;
+    color: #666;
+}
+
+footer dd a:hover{
+    text-decoration: none;
+    color: #666;
+}
+
+footer .footer-right {
+    display: inline-block;
+    float: right;
+    width: 20%;
+    text-align: right;
+}
+
+footer .footer-right .share {
+    font-size: 0;
+    margin: 46px 0 0;
+    text-align: right;
+}
+
+footer .footer-right .share-links {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-left: 12px;
+}
+
+.weixinImg {
+    background: rgba(0, 0, 0, 0) url('../image/icon/weixin.png');
+    background-repeat:no-repeat;
+    background-size:30px 30px;
+}
+.weiboImg {
+    background: rgba(0, 0, 0, 0) url('../image/icon/weibo.png');
+    background-repeat:no-repeat;
+    background-size:30px 30px;
+}
+
+.github {
+    background: rgba(0, 0, 0, 0) url('../image/icon/github.png');
+    background-repeat:no-repeat;
+    background-size:30px 30px;
+}
+
+.csdn {
+    background: rgba(0, 0, 0, 0) url('../image/icon/csdn.png');
+    background-repeat:no-repeat;
+    background-size:30px 30px;
+}
+
+footer .footer-right .qrcode {
+    margin-top: 30px;
+}
+
+footer .copyright {
+    font-size: 14px;
+    line-height: 71px;
+    clear: both;
+    width: 100%;
+    height: 72px;
+    margin-top: 40px;
+    text-align: center;
+    color: #999;
+    border-top: 1px solid #222;
+}
+footer section {
+    width: 900px;
+    margin: 0 auto;
+}
+
