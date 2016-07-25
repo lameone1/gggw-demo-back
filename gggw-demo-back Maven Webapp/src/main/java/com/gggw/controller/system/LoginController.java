@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import com.gggw.util.FastJsonUtil;
 import com.gggw.util.PageData;
 import com.gggw.controller.base.BaseController;
@@ -53,5 +54,7 @@ public class LoginController extends BaseController{
 		pd = sysUserService.findByUserNo(pd);		
 		return FastJsonUtil.toJSONString(pd);
 	}
+	
+
 }
 
