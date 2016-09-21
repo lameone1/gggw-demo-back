@@ -9,6 +9,7 @@
 
 package com.gggw.controller.system;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,12 +50,59 @@ public class LoginController extends BaseController{
 	@ResponseBody
 	public Object login(HttpServletRequest request)throws Exception{
 		Map<String,String> map = new HashMap<String,String>();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		pd = sysUserService.findByUserNo(pd);		
-		return FastJsonUtil.toJSONString(pd);
+//		PageData pd = new PageData();
+//		pd = this.getPageData();
+//		pd = sysUserService.findByUserNo(pd);	
+		System.out.println(getRequestPostStr(request));
+		map.put("error_no", "0");
+		return FastJsonUtil.toJSONString(map);
 	}
 	
+	  /**       
+     * 描述:获取 post 请求内容 
+     * <pre> 
+     * 举例： 
+     * </pre> 
+     * @param request 
+     * @return 
+     * @throws IOException       
+     */  
+    public static String getRequestPostStr(HttpServletRequest request)  
+            throws IOException {  
+        byte buffer[] = getRequestPostBytes(request);  
+        String charEncoding = request.getCharacterEncoding();  
+        if (charEncoding == null) {  
+            charEncoding = "UTF-8";  
+        }  
+        return new String(buffer, charEncoding);  
+    }  
 
+    /**       
+     * 描述:获取 post 请求的 byte[] 数组 
+     * <pre> 
+     * 举例： 
+     * </pre> 
+     * @param request 
+     * @return 
+     * @throws IOException       
+     */  
+    public static byte[] getRequestPostBytes(HttpServletRequest request)  
+            throws IOException {  
+        int contentLength = request.getContentLength();  
+        if(contentLength<0){  
+            return null;  
+        }  
+        byte buffer[] = new byte[contentLength];  
+        for (int i = 0; i < contentLength;) {  
+  
+            int readlen = request.getInputStream().read(buffer, i,  
+                    contentLength - i);  
+            if (readlen == -1) {  
+                break;  
+            }  
+            i += readlen;  
+        }  
+        return buffer;  
+    }  
 }
 
