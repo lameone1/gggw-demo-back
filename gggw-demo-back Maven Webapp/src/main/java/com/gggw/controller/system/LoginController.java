@@ -50,9 +50,9 @@ public class LoginController extends BaseController{
 	@ResponseBody
 	public Object login(HttpServletRequest request)throws Exception{
 		Map<String,String> map = new HashMap<String,String>();
-//		PageData pd = new PageData();
-//		pd = this.getPageData();
-//		pd = sysUserService.findByUserNo(pd);	
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd = sysUserService.findByUserNo(pd);
 		System.out.println(getRequestPostStr(request));
 		map.put("error_no", "0");
 		return FastJsonUtil.toJSONString(map);
