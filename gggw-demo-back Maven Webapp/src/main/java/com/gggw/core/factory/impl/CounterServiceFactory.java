@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.gggw.core.factory.ConfigedFactory;
 import com.gggw.core.factory.ICounterService;
@@ -15,6 +16,7 @@ import com.gggw.result.SisapResult;
 import com.gggw.service.counter.AbstractHsIfsService;
 import com.gggw.service.counter.AbstractKospService;
 import com.gggw.service.counter.AbstractLiveBosService;
+import com.gggw.service.counter.Counter;
 import com.gggw.util.PropertiesUtils;
 
 /**
@@ -34,6 +36,7 @@ import com.gggw.util.PropertiesUtils;
  * 开发人员: @author cgw<br>
  * 开发时间: 2016-9-11 下午5:04:30<br>
  */
+@Service
 public class CounterServiceFactory extends ConfigedFactory<ICounterService> {
 
 	private Logger logger = LoggerFactory.getLogger(CounterServiceFactory.class);
@@ -57,6 +60,15 @@ public class CounterServiceFactory extends ConfigedFactory<ICounterService> {
 	/**
 	 *  这里多加个第三方服务就要改这里的代码
 	 *  Any better way ?
+	 *  
+	 *  In my opinion：
+	 *  	1.name使用类名首字母小写的形式
+	 *  	2.同时去实现一个接口Counter
+	 *  	3.通过springContext.getBeansOfType(Counter);获取到相应类
+	 *  	4.遍历相应类放入相应类类型
+	 *  Result:
+	 *  	1.因为抽象类没有自动注入（@Service） 所以无法使用springContext
+	 *  	2.只能写个工具类获取所有实现Counter的接口(这里是所有,不太合适)	 -- ClassUtil
 	 */
 	@Override
 	protected Map<String, Class> getConfigMapping() {
@@ -66,7 +78,7 @@ public class CounterServiceFactory extends ConfigedFactory<ICounterService> {
 			configMapping.put(CONFIG_KEY_KD, AbstractKospService.class);
 			configMapping.put(COFNIG_KEY_LB, AbstractLiveBosService.class);
 		}
-		return null;
+		return configMapping;
 	}
 
 	public SisapResult excute(String userName, Map<String, Object> params, Class<? extends ICounterService> clazz) {
@@ -78,7 +90,7 @@ public class CounterServiceFactory extends ConfigedFactory<ICounterService> {
 	}
 	
 	public ICounterService getBean(Class<? extends ICounterService> clazz) {
-		String configValue = PropertiesUtils.get(CONFIG_KEY);
+		String configValue = PropertiesUtils.get(CONFIG_KEY);//"oosKospTellerCounter";
 		if (StringUtils.isBlank(configValue)) {
 			logger.info("当前配置项的{}为空,默认将加载对接恒生的实现", CONFIG_KEY);
 			configValue = CONFIG_KEY_HS;
@@ -95,7 +107,7 @@ public class CounterServiceFactory extends ConfigedFactory<ICounterService> {
 		Map<String, ICounterService> map = springContext.getBeansOfType(configClass);
 		for (Map.Entry<String, ICounterService> entry : map.entrySet()) {
 			ICounterService bean = entry.getValue();
-			//入参
+			//入参  判断类类型
 			if (clazz.isAssignableFrom(bean.getClass())) {
 				return bean;
 			}

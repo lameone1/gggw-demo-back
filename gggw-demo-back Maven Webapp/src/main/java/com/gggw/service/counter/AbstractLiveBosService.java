@@ -6,6 +6,6 @@ package com.gggw.service.counter;
  * 开发人员: @author cgw<br>
  * 开发时间: 2015年8月24日<br>
  */
-public abstract class AbstractLiveBosService {
+public abstract class AbstractLiveBosService implements Counter{
 
 }
