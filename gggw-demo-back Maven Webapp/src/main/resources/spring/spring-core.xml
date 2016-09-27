@@ -36,6 +36,16 @@
 		</property>
 	</bean>  
 	
+	<bean id="PropertiesUtils" class="com.gggw.util.PropertiesUtils">
+		<property name="fileList">
+			<list>
+				<value>/interface/interface_config.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="springContext" class="com.gggw.core.utils.SpringContext"></bean>
+	
 	<!-- 阿里 druid数据库连接池 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">  
          <!-- 数据库基本信息配置 -->

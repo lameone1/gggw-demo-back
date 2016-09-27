@@ -16,6 +16,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gggw.util.FastJsonUtil;
 import com.gggw.util.PageData;
 import com.gggw.controller.base.BaseController;
+import com.gggw.core.factory.impl.CounterServiceFactory;
+import com.gggw.service.counter.service.CounterService0002;
 import com.gggw.service.system.SysUserService;
 
 /**
@@ -43,6 +46,8 @@ public class LoginController extends BaseController{
 	@Resource(name="sysUserService")
 	private SysUserService sysUserService;
 	
+	@Autowired
+	private CounterServiceFactory counterFactory;
 	/**
 	 * 请求登录，验证用户
 	 */
@@ -53,8 +58,10 @@ public class LoginController extends BaseController{
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd = sysUserService.findByUserNo(pd);
-		System.out.println(getRequestPostStr(request));
+		//System.out.println(getRequestPostStr(request));
 		map.put("error_no", "0");
+		counterFactory.excute("cccgw", null, CounterService0002.class);
+		
 		return FastJsonUtil.toJSONString(map);
 	}
 	

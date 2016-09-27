@@ -47,7 +47,7 @@ public class PropertiesUtils {
 	 * TODO(读取配置).<br/>
 	 */
 	public static Properties getProp() {
-		if (prop == null) {
+		if (prop == null || prop.isEmpty()) {
 			prop = new Properties();
 
 			if (fileList != null) {

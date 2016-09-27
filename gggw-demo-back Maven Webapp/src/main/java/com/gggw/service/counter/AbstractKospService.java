@@ -1,5 +1,6 @@
 package com.gggw.service.counter;
 
+
 import com.gggw.util.PropertiesUtils;
 /**
  * 功能说明: <br>
@@ -7,7 +8,7 @@ import com.gggw.util.PropertiesUtils;
  * 开发人员: @author cgw<br>
  * 开发时间: 2016/8/17<br>
  */
-public abstract class AbstractKospService {
+public abstract class AbstractKospService implements Counter{
     private static final String kospRunMode = PropertiesUtils.get("kosp.run.mode", "");
 
     protected  Boolean isRunMode(){
