@@ -16,7 +16,7 @@ import com.gggw.util.PropertiesUtils;
  * 开发人员: @author cgw<br>
  * 开发时间: 2016-9-11 下午1:59:36<br>
  */
-public abstract class ConfigedFactory {
+public abstract class ConfigedFactory<T> {
 	public static Logger logger = LoggerFactory.getLogger(ConfigedFactory.class);
 	
 	@Autowired
