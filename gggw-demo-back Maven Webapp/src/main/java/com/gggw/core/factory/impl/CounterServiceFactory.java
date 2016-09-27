@@ -69,7 +69,13 @@ public class CounterServiceFactory extends ConfigedFactory {
 			logger.info("当前配置项的{}为空,默认将加载对接恒生的实现", CONFIG_KEY);
 			configValue = CONFIG_KEY_HS;
 		}
-		//why ICounterService  (abstract factory)  存疑
+		
+		/**
+		 * why ICounterService  (abstract factory)  	--2016.09.01
+		 * 这里在编译器只是提示警告，生成字节码的时候无泛型，故也不会报错。 --2016.09.27
+		 * In my opinion：
+		 * 			Class configClass = getConfigMapping().get(configValue);
+		 */
 		Class<ICounterService> configClass = getConfigMapping().get(configValue);
 		Map<String, ICounterService> map = springContext.getBeansOfType(configClass);
 		for (Map.Entry<String, ICounterService> entry : map.entrySet()) {
