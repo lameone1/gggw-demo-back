@@ -36,6 +36,7 @@ import com.gggw.util.PropertiesUtils;
  * 开发人员: @author cgw<br>
  * 开发时间: 2016-9-11 下午5:04:30<br>
  */
+@SuppressWarnings("all") 
 @Service
 public class CounterServiceFactory extends ConfigedFactory<ICounterService> {
 
@@ -67,8 +68,10 @@ public class CounterServiceFactory extends ConfigedFactory<ICounterService> {
 	 *  	3.通过springContext.getBeansOfType(Counter);获取到相应类
 	 *  	4.遍历相应类放入相应类类型
 	 *  Result:
-	 *  	1.因为抽象类没有自动注入（@Service） 所以无法使用springContext
-	 *  	2.只能写个工具类获取所有实现Counter的接口(这里是所有,不太合适)	 -- ClassUtil
+	 *  	1.因为抽象类没有自动注入（@Service） 所以无法使用springContext  
+	 *  	2.如果自己写的springContext.getBeansOfType(Counter),只能获取最底层的子类，无法获取到抽象类
+	 *  	3.如果同spring ApplicationContext的getBeansOfType,会获取所有实现Counter接口的类
+	 *  	4.如果写个工具类获取所有实现Counter的接口(这里是所有,不太合适)	 -- ClassUtil
 	 */
 	@Override
 	protected Map<String, Class> getConfigMapping() {

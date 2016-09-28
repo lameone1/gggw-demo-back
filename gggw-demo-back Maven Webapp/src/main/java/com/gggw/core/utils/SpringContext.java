@@ -73,6 +73,7 @@ public class SpringContext implements ApplicationContextAware {
 		Map<String, T> map = null;
 		if (appContext != null) {
 			map = appContext.getBeansOfType(clazz);
+			//防止执行两次
 			if (map == null || map.isEmpty() && appContext.getParent() != null ) {
 				map = appContext.getParent().getBeansOfType(clazz);
 			}
