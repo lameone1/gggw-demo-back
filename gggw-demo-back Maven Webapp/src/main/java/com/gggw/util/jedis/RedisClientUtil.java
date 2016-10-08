@@ -594,29 +594,6 @@ public class RedisClientUtil {
 		return result;
 	}
 	
-	public static void main(String[] args) {
-		// set("config.cache.clients", null);
-		// del("config.cache.clients");
-		for (int t = 0; t < 20; t++) {
-			new Thread() {
-
-				public void run() {
-					for (int i = 0; i < 1000; i++) {
-						System.out.println(get("config.cache.clients"));
-						try {
-							System.out.println(set(null, "12345"));
-						} catch (Exception e) {
-							System.out.println(e);
-						}
-					}
-				}
-			}.start();
-		}
-		// System.out.println(get("config.cache.db"));
-		// System.out.println(get("config.cache.CAConfigCache"));
-		// close();
-	}
-	
 	/**
 	 * 读取redis，根据format参数返回Date
 	 * @author meijie
@@ -646,5 +623,29 @@ public class RedisClientUtil {
 	}
 	
 	//==================================================     Tool Function   End        =====================================//
+	
+	public static void main(String[] args) {
+		// set("config.cache.clients", null);
+		// del("config.cache.clients");
+//		for (int t = 0; t < 20; t++) {
+//			new Thread() {
+//
+//				public void run() {
+//					for (int i = 0; i < 1000; i++) {
+//						System.out.println(get("config.cache.clients"));
+//						try {
+//							System.out.println(set(null, "12345"));
+//						} catch (Exception e) {
+//							System.out.println(e);
+//						}
+//					}
+//				}
+//			}.start();
+//		}
+		// System.out.println(get("config.cache.db"));
+		// System.out.println(get("config.cache.CAConfigCache"));
+		// close();
+		System.out.println(RedisClientUtil.get("config.cache./db/jdbc.properties"));
+	}
 }
 
