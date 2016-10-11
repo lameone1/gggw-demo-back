@@ -12,9 +12,11 @@ package com.gggw.controller.system;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+import com.gggw.util.CookieUtil;
 import com.gggw.util.FastJsonUtil;
 import com.gggw.util.PageData;
+import com.gggw.util.jedis.RedisClientUtil;
 import com.gggw.controller.base.BaseController;
 import com.gggw.core.factory.impl.CounterServiceFactory;
 import com.gggw.service.counter.service.CounterService0002;
@@ -51,9 +55,9 @@ public class LoginController extends BaseController{
 	/**
 	 * 请求登录，验证用户
 	 */
-	@RequestMapping(value="/login_login")
+	@RequestMapping(value="login_login")
 	@ResponseBody
-	public Object login(HttpServletRequest request)throws Exception{
+	public Object login(HttpServletRequest request, HttpServletResponse response)throws Exception{
 		Map<String,String> map = new HashMap<String,String>();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -62,10 +66,41 @@ public class LoginController extends BaseController{
 		map.put("error_no", "0");
 		counterFactory.excute("cccgw", null, CounterService0002.class);
 		
+		CookieUtil.setCookie2(response, CookieUtil.COOKIE_GGGW_SESSION_ID, UUID.randomUUID().toString(), true);
+		
+		return FastJsonUtil.toJSONString(pd);
+	}
+	
+	/**
+	 * 测试redis
+	 */
+	@RequestMapping(value="redisTest")
+	@ResponseBody
+	public Object redisTest(HttpServletRequest request)throws Exception{
+		Map<String,String> map = new HashMap<String,String>();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		RedisClientUtil.set(pd.getString("regist_user_email"), pd.getString("regist_user_no"));
+		map.put("regist_user_no", RedisClientUtil.get("502269006@qq.com"));
 		return FastJsonUtil.toJSONString(map);
 	}
 	
-	  /**       
+	/**
+	 * 测试cookie
+	 */
+	@RequestMapping(value="cookieTest")
+	@ResponseBody
+	public Object cookieTest(HttpServletRequest request)throws Exception{
+		Map<String,String> map = new HashMap<String,String>();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String cookieString = CookieUtil.getCookie(request, CookieUtil.COOKIE_GGGW_SESSION_ID);
+		map.put("cookie_string", cookieString);
+		return FastJsonUtil.toJSONString(map);
+	}
+	//=========================================  tool Functions  start  ===========================================//
+	
+	/**       
      * 描述:获取 post 请求内容 
      * <pre> 
      * 举例： 
@@ -111,5 +146,7 @@ public class LoginController extends BaseController{
         }  
         return buffer;  
     }  
+    
+	//=========================================  tool Functions  end  ===========================================//
 }
 
