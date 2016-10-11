@@ -10,8 +10,10 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 /**
  * 
  * ClassName: LoginHandlerInterceptor <br/>
- * Function: 校验用户是否登录拦截器. <br/>
- * Reason: TODO ADD REASON(可选). <br/>
+ * Function: 校验用户是否登录拦截器.使用cookie代替session以便集群. <br/>
+ * 			 session:	服务器端保持状态
+ * 			 cookie:    客户端保持状态
+ * 			       		集群环境下，使用session,当另一台服务器接收请求时,会找不到session.
  * date: 2016-6-24 下午2:33:19 <br/>
  *
  * @author cgw
@@ -28,6 +30,10 @@ public class LoginHandlerInterceptor extends HandlerInterceptorAdapter{
 	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+		
+		/** 
+		 * 主要在这里加入验证cookie的逻辑。
+		 */
 		
 		System.out.println("LoginHandlerInterceptor  preHandle()===========登录拦截");
 		

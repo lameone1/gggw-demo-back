@@ -154,13 +154,13 @@
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="邮箱" />
+															<input type="email" class="form-control" name="forget_email" id="forget_email"  placeholder="邮箱" />
 															<i class="icon-envelope"></i>
 														</span>
 													</label>
 
 													<div class="clearfix">
-														<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+														<button type="button" id="forget_button" class="width-35 pull-right btn btn-sm btn-danger">
 															<i class="icon-lightbulb"></i>
 															发送!
 														</button>
@@ -195,28 +195,28 @@
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="邮箱" />
+															<input type="email" class="form-control" name="regist_email" id="regist_email" placeholder="邮箱" />
 															<i class="icon-envelope"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="用户名" />
+															<input type="text" class="form-control" name="regist_user_no" id="regist_user_no" placeholder="用户名" />
 															<i class="icon-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" />
+															<input type="password" class="form-control" name="regist_user_pwd" id="regist_user_pwd" placeholder="密码" />
 															<i class="icon-lock"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="重复密码" />
+															<input type="password" class="form-control" name="repeat_regist_user_pwd" id="repeat_regist_user_pwd" placeholder="重复密码" />
 															<i class="icon-retweet"></i>
 														</span>
 													</label>
@@ -237,7 +237,7 @@
 															重置
 														</button>
 
-														<button type="button" class="width-65 pull-right btn btn-sm btn-success">
+														<button type="button" id="regist_button" class="width-65 pull-right btn btn-sm btn-success">
 															注册
 															<i class="icon-arrow-right icon-on-right"></i>
 														</button>
@@ -289,6 +289,37 @@
 				});
 			
 			});
+			
+			$("#regist_button").click(function() {
+			
+				var registUserEmail = $("#regist_email").val();
+				var registUserNo = $("#regist_user_no").val();
+								
+				var url = "redisTest";
+				var params = {
+					regist_user_email : registUserEmail,
+					regist_user_no : registUserNo
+				};
+				$.getJSON(url, params, function(data) {
+					alert(data.regist_user_no);
+				
+				});
+			
+			});
+			
+			$("#forget_button").click(function() {
+			
+				var forgetUserEmail = $("#forget_email").val();
+								
+				var url = "cookieTest";
+				var params = {
+					forget_user_email : forgetUserEmail,
+				};
+				$.getJSON(url, params, function(data) {
+					alert(data.cookie_string);				
+				});
+			
+			});	
 		</script>
 		
 		
