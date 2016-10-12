@@ -32,6 +32,7 @@ import com.gggw.controller.base.BaseController;
 import com.gggw.core.factory.impl.CounterServiceFactory;
 import com.gggw.service.counter.service.CounterService0002;
 import com.gggw.service.system.SysUserService;
+import com.gggw.system.service.IImageCodeService;
 
 /**
  * ClassName:LoginController <br/>
@@ -47,11 +48,27 @@ import com.gggw.service.system.SysUserService;
 @Controller
 public class LoginController extends BaseController{
 	
+	/**
+	 * @Resource  
+	 * 			默认使用 byName装配，也可使用 byType（@Resource(type="ISserService")） 
+	 * 			等效于
+	 * 				 @Autowired
+	 *				 @Qualifier("sysUserService")
+	 *			属于 JSR 250 (@Resource @PostConstruct @PreDestroy)
+	 *
+	 * @Autowired
+	 * 			使用byType装配
+	 * 		WARNNING： 当多个实现类实现统一接口时，抛出 "NoSuchBeanDefinitionException"异常
+	 * 					
+	 * 			
+	 */
 	@Resource(name="sysUserService")
 	private SysUserService sysUserService;
 	
 	@Autowired
 	private CounterServiceFactory counterFactory;
+	@Autowired
+	private IImageCodeService verifyCodeService;
 	/**
 	 * 请求登录，验证用户
 	 */
@@ -66,7 +83,7 @@ public class LoginController extends BaseController{
 		map.put("error_no", "0");
 		counterFactory.excute("cccgw", null, CounterService0002.class);
 		
-		CookieUtil.setCookie2(response, CookieUtil.COOKIE_GGGW_SESSION_ID, UUID.randomUUID().toString(), true);
+		CookieUtil.setCookie(response, CookieUtil.COOKIE_GGGW_SESSION_ID, UUID.randomUUID().toString(), true);
 		
 		return FastJsonUtil.toJSONString(pd);
 	}
@@ -98,6 +115,30 @@ public class LoginController extends BaseController{
 		map.put("cookie_string", cookieString);
 		return FastJsonUtil.toJSONString(map);
 	}
+	
+	/**
+	 * 校验验证码
+	 */
+	@RequestMapping(value="checkCookie")
+	@ResponseBody
+	public Object checkCookie(HttpServletRequest request)throws Exception{
+		Map<String,String> map = new HashMap<String,String>();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		if (verifyCodeService.checkVerifycode(pd.getString("verify_code"), CookieUtil.getCookie(request, CookieUtil.COOKIE_GGGW_SESSION_ID))) {
+			map.put("result_info", "正确");
+		} else {
+			map.put("result_info", "错误");
+		}
+		
+		
+		return FastJsonUtil.toJSONString(map);
+	}
+	
+	
+	
+	
+	
 	//=========================================  tool Functions  start  ===========================================//
 	
 	/**       

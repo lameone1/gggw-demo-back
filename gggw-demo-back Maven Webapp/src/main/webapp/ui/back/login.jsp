@@ -160,6 +160,20 @@
 													</label>
 
 													<div class="clearfix">
+														
+														<label class="inline">
+															<img id="imageCode" src="${contextPath }/static/image/code.png">
+														</label>
+														<label class="inline">
+															<input type="text"  name="verify_code" id="verify_code"  placeholder="验证码" />
+														</label>
+														
+														<button type="button" id="check_code_button" class="width-35 pull-right btn btn-sm btn-danger">
+															<i class="icon-lightbulb"></i>
+															验证
+														</button>
+													</div>
+													<div class="clearfix">
 														<button type="button" id="forget_button" class="width-35 pull-right btn btn-sm btn-danger">
 															<i class="icon-lightbulb"></i>
 															发送!
@@ -320,6 +334,21 @@
 				});
 			
 			});	
+			
+			$("#imageCode").click(function() {
+				$("#imageCode").attr("src", "imageCode.img?d=" + new Date().getTime());
+			}); 
+			
+			$("#check_code_button").click(function() {
+				var verifyCode = $("#verify_code").val();
+				var url = "checkCookie";
+				var params = {
+					verify_code : verifyCode
+				}
+				$.getJSON(url, params, function(data) {
+					alert(data.result_info);				
+				});
+			});
 		</script>
 		
 		
