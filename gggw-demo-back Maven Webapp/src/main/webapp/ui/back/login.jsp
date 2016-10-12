@@ -159,20 +159,18 @@
 														</span>
 													</label>
 
-													<div class="clearfix">
-														
-														<label class="inline">
-															<img id="imageCode" src="${contextPath }/static/image/code.png">
-														</label>
+													<label class="block clearfix">
 														<label class="inline">
 															<input type="text"  name="verify_code" id="verify_code"  placeholder="验证码" />
 														</label>
-														
+														<label class="inline">
+															<img id="imageCode" src="${contextPath }/static/image/code.png">
+														</label>														
 														<button type="button" id="check_code_button" class="width-35 pull-right btn btn-sm btn-danger">
 															<i class="icon-lightbulb"></i>
 															验证
 														</button>
-													</div>
+													</label>
 													<div class="clearfix">
 														<button type="button" id="forget_button" class="width-35 pull-right btn btn-sm btn-danger">
 															<i class="icon-lightbulb"></i>
@@ -348,6 +346,10 @@
 				$.getJSON(url, params, function(data) {
 					alert(data.result_info);				
 				});
+			});
+			
+			$(function(){
+				$("#imageCode").attr("src", "imageCode.img?d=" + new Date().getTime());
 			});
 		</script>
 		

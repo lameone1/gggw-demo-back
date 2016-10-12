@@ -2,6 +2,7 @@ package com.gggw.controller.system;
 
 import java.awt.image.BufferedImage;
 import java.io.OutputStream;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +38,16 @@ public class VerifyCodeAction {
 		try {
 			// 生成随机验证码内容   
 			verifyCode= verifyCodeService.getRandString();
-			String sessionId=CookieUtil.getCookie(request, CookieUtil.COOKIE_GGGW_SESSION_ID);
+			String sessionId= CookieUtil.getCookie(request, CookieUtil.COOKIE_GGGW_SESSION_ID);
+			
+			/**
+			 * 这里测试用，如果没有cookie的话则设置cookie
+			 */
+			if (null == CookieUtil.getCookie(request, CookieUtil.COOKIE_GGGW_SESSION_ID)) {
+				sessionId = UUID.randomUUID().toString();
+				CookieUtil.setCookie(response, CookieUtil.COOKIE_GGGW_SESSION_ID, sessionId, true);
+			}		
+			
 			// 存入redis，以便集群服务器均可获取，3分钟过期
 			verifyCodeService.saveValidateCode(verifyCode, sessionId);
 			BufferedImage bufferedImage = verifyCodeService.createVerifyCodeImage(verifyCode);
